@@ -1,0 +1,91 @@
+#root {
+  max-width: 1280px;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.messages{
+  display: flex;
+  height: 90%;
+  width: 100%;
+  overflow: auto;
+  flex-direction: column;
+}
+
+.message{
+  max-width: 500px;
+  align-self: flex-end;
+  text-align: right;
+}
+
+.messageBody{
+  text-align: left;
+}
+
+.user{
+  align-self: flex-start;
+  text-align: left;
+}
+
+.footer{
+  height: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.footer input{
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.footer .sendbtn{
+  height: 90%;
+  margin-left: 10px;
+  aspect-ratio: 1/1;
+  background-color: rgb(128, 128, 128);
+  border-radius: 20%;
+}
+
+.footer .uploadbtn{
+  height: 90%;
+  margin-left: 10px;
+  margin-right: 10px;
+  aspect-ratio: 1/1;
+  background-color: rgb(128, 128, 128);
+  border-radius: 20%;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden {
+  top: 100000000%
+}
+
+.popup-content {
+  max-height: 30%;
+  overflow:auto;
+  background: #242424; /* Keep the content fully visible */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  clip-path: inset(0 round 10px);
+}

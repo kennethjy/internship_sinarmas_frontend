@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { PiFolderPlus } from "react-icons/pi";
 
 function App() {
   const [messages, setMessages] = useState([])
@@ -7,7 +8,7 @@ function App() {
   const [pdf, setPdf] = useState([]);
   const [flowchart, setFlowchart] = useState([]);
   const [pdfPopup, setPdfPopup] = useState(false);
-  const [queryMode, setqueryMode] = useState("regular");
+  const [queryMode, setqueryMode] = useState("normal");
 
   
   const handleSend = async () => {
@@ -124,9 +125,8 @@ function App() {
     <div className='app-container'>
       <div className='message-container'>
         <div className='messages'>
-          {messages.map((m, index) => (
+          {messages.map((m) => (
             <div className= {'message ' + m.sender}>
-            <h2>{m.sender}</h2>
               <div className='messageBody'>{m.text}</div>
             </div>
           ))}
@@ -137,12 +137,34 @@ function App() {
           onKeyDown={(e) => e.key === "Enter" && handleSend()}>
           </input>
         </div>
-        
       </div>
+
       <div className='footer'>
-        <div className='uploadbtn' onClick={() => {queryMode == "regular" ? setqueryMode("comparison") : setqueryMode("regular")}}>MODE</div>
-        <div className='uploadbtn pdf' onClick={()=>{setPdfPopup(true)}}>Files</div>
-        <div className='sendbtn' onClick={handleSend}>SEND</div>
+        <div className='upload-container'>
+          <h2>{"Insert Flowchart File(s)"}</h2>
+          <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
+            <PiFolderPlus size={30}/>
+          </div>
+        </div>
+        <div className='upload-container'>
+          <h2>{"Insert Supporting PDF(s)"}</h2>
+          <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
+            <PiFolderPlus size={30}/>
+          </div>
+        </div>
+        <div className='mode-select'>
+          <div className='mode-option' onClick={() => {setqueryMode('normal')}}>
+            <div className='mode-outline'> <div className={queryMode == 'normal' ? 'mode-fill active' : 'mode-fill'}></div> </div>
+            <h3>Normal Mode</h3>
+          </div>
+          <div className='mode-option' onClick={() => {setqueryMode('comparison')}}>
+            <div className='mode-outline'> <div className={queryMode == 'comparison' ? 'mode-fill active' : 'mode-fill'}></div></div>
+            <h3>Comparison Mode</h3>
+          </div>
+        </div>
+        <div className='sendbtn' onClick={handleSend}>
+          <h2>Submit</h2>
+        </div>
       </div>
 
       <div className={'popup' + (!pdfPopup ? ' hidden' : '')}>

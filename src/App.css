@@ -47,9 +47,17 @@
 }
 
 .message{
+  margin-left: 5%;
+  margin-right: 5%;
+  padding: 10px;
+  margin-top: 50px;
   max-width: 500px;
-  align-self: flex-end;
-  text-align: right;
+  align-self: flex-start;
+  text-align: left;
+  border: #898989;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 10px;
 }
 
 .messageBody{
@@ -57,8 +65,8 @@
 }
 
 .user{
-  align-self: flex-start;
-  text-align: left;
+  align-self: flex-end;
+  text-align: right;
 }
 
 .footer{
@@ -74,21 +82,55 @@
 }
 
 
-
-.footer .sendbtn{
-  height: 10%;
+.sendbtn{
+  height: 8%;
   width: 90%;
   margin: 5%;
-  background-color: rgb(128, 128, 128);
+  background-color: #FF0000;
   border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.footer .uploadbtn{
+.sendbtn h2{
+  color: #ffffff;
+}
+
+.uploadbtn {
   height: 30%;
   width: 90%;
   margin: 5%;
-  background-color: rgb(128, 128, 128);
+  background-color: #808080;
   border-radius: 20px;
+}
+
+.upload-container {
+  height: 30%;
+  width: 90%;
+  margin: 5%;
+  padding-bottom: 3%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  border-style: dashed;
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+}
+
+.smallbtn {
+  border-radius: 50%;
+  height: 35%;
+  aspect-ratio: 1;
+  align-self: center;
+  background-color: #D9D9D9;
+  margin: auto;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #898989;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup {
@@ -109,10 +151,54 @@
 
 .popup-content {
   max-height: 30%;
-  overflow:auto;
-  background: #ffffff; /* Keep the content fully visible */
+  overflow: auto;
+  background: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   clip-path: inset(0 round 10px);
+}
+
+.mode-select {
+  display: flex;
+  width: 90%;
+  margin: 5%;
+  flex-direction: column;
+  align-items: left;
+}
+
+.mode-option {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  text-align: left;
+}
+
+.mode-outline {
+  align-self: center;
+  height: 30%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #FF0000;
+  border-width: 4px;
+  background-color: #ffffff;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode-fill {
+  align-self: center;
+  height: 75%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  transform: scale(0);
+  background-color: #FF0000;
+  transition: transform 0.3s ease-in-out;
+}
+
+.active  {
+  transform: scale(1); /* Expand when active */
 }

@@ -1,14 +1,41 @@
 #root {
-  max-width: 1280px;
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.app-container{
+  width:100%;
+  height:100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.message-container{
+  width:150%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff
+}
+
+.message-input {
+  height: 10%;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.message-container input{
+  flex-grow: 1;
 }
 
 .messages{
@@ -35,33 +62,33 @@
 }
 
 .footer{
-  height: 10%;
-  width: 100%;
+  height: 95%;
+  width: 95%;
+  margin: 1.5%;
+  background-color: #ffffff;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
 }
 
-.footer input{
-  flex-grow: 1;
-  margin-right: 10px;
-}
+
 
 .footer .sendbtn{
-  height: 90%;
-  margin-left: 10px;
-  aspect-ratio: 1/1;
+  height: 10%;
+  width: 90%;
+  margin: 5%;
   background-color: rgb(128, 128, 128);
-  border-radius: 20%;
+  border-radius: 20px;
 }
 
 .footer .uploadbtn{
-  height: 90%;
-  margin-left: 10px;
-  margin-right: 10px;
-  aspect-ratio: 1/1;
+  height: 30%;
+  width: 90%;
+  margin: 5%;
   background-color: rgb(128, 128, 128);
-  border-radius: 20%;
+  border-radius: 20px;
 }
 
 .popup {
@@ -83,7 +110,7 @@
 .popup-content {
   max-height: 30%;
   overflow:auto;
-  background: #242424; /* Keep the content fully visible */
+  background: #ffffff; /* Keep the content fully visible */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);

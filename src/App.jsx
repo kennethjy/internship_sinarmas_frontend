@@ -121,19 +121,25 @@ function App() {
   
 
   return (
-    <>
-      <div className='messages'>
-        {messages.map((m, index) => (
-          <div className= {'message ' + m.sender}>
+    <div className='app-container'>
+      <div className='message-container'>
+        <div className='messages'>
+          {messages.map((m, index) => (
+            <div className= {'message ' + m.sender}>
             <h2>{m.sender}</h2>
-            <div className='messageBody'>{m.text}</div>
-          </div>
-        ))}
+              <div className='messageBody'>{m.text}</div>
+            </div>
+          ))}
+        </div>
+        <div className='message-input'>
+          <input type='text' value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleSend()}>
+          </input>
+        </div>
+        
       </div>
       <div className='footer'>
-        <input type='text' value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}></input>
         <div className='uploadbtn' onClick={() => {queryMode == "regular" ? setqueryMode("comparison") : setqueryMode("regular")}}>MODE</div>
         <div className='uploadbtn pdf' onClick={()=>{setPdfPopup(true)}}>Files</div>
         <div className='sendbtn' onClick={handleSend}>SEND</div>
@@ -161,7 +167,7 @@ function App() {
           <button onClick={() => setPdfPopup(false)}>Close</button>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

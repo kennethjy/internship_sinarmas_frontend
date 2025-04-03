@@ -8,13 +8,14 @@ function App() {
   const [pdf, setPdf] = useState([]);
   const [flowchart, setFlowchart] = useState([]);
   const [pdfPopup, setPdfPopup] = useState(false);
+  const [flowchartPopup, setFlowchartPopup] = useState(false);
   const [queryMode, setqueryMode] = useState("normal");
 
   
   const handleSend = async () => {
     if (!input.trim()) return;
     const newMessages = [...messages, 
-      { sender: "user", text: input },
+      { sender: "user", text: formatText(input) },
       { sender: "bot", text: "Generating..." }];
     setMessages(newMessages);
     const inputCopy = input.replace(/\?/g, "%3F");
@@ -132,17 +133,18 @@ function App() {
           ))}
         </div>
         <div className='message-input'>
-          <input type='text' value={input}
+          <textarea value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSend()}>
-          </input>
+          onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+          placeholder='Enter your prompt here...'
+          rows="1"></textarea>
         </div>
       </div>
 
       <div className='footer'>
         <div className='upload-container'>
           <h2>{"Insert Flowchart File(s)"}</h2>
-          <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
+          <div className='smallbtn upload' onClick={()=>{setFlowchartPopup(true)}}>
             <PiFolderPlus size={30}/>
           </div>
         </div>
@@ -167,7 +169,7 @@ function App() {
         </div>
       </div>
 
-      <div className={'popup' + (!pdfPopup ? ' hidden' : '')}>
+      <div className={'popup' + (!pdfPopup ? ' hidden' : '')} onClick={() => setPdfPopup(false)}>
         <div className='popup-content'>
           <h3>Upload PDF</h3>
           <input type='file' accept='application/pdf' onChange={(e) => uploadFile(e.target.files[0], pdf, setPdf)} />
@@ -177,7 +179,12 @@ function App() {
               <li>{filename}</li>
             ))}
           </ol>
-          <br />
+          <button onClick={() => setPdfPopup(false)}>Close</button>
+        </div>
+      </div>
+
+      <div className={'popup' + (!flowchartPopup ? ' hidden' : '')} onClick={() => setFlowchartPopup(false)}>
+        <div className='popup-content'>
           <h3>Upload Flowchart</h3>
           <input type='file' accept='image/*' onChange={(e) => uploadFile(e.target.files[0], flowchart, setFlowchart)} />
           <p>Flowcharts:</p>
@@ -186,9 +193,10 @@ function App() {
               <li>{filename}</li>
             ))}
           </ol>
-          <button onClick={() => setPdfPopup(false)}>Close</button>
+          <button onClick={() => setFlowchartPopup(false)}>Close</button>
         </div>
       </div>
+
     </div>
   )
 }

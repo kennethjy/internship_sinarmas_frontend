@@ -1,7 +1,7 @@
 #root {
   width: 100vw;
   height: 100vh;
-  min-height: 728px;
+  min-height: 700px;
   box-sizing: border-box;
   margin: 0 auto;
   text-align: center;
@@ -19,10 +19,11 @@
 
 .message-container{
   width:150%;
-  height:100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff
+  background-color: #ffffff;
+  justify-content: space-between;
 }
 
 .message-input {
@@ -31,8 +32,9 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 4.5%;
 }
 
 .message-input textarea{
@@ -45,14 +47,14 @@
   resize: none;
   overflow: hidden;
   outline: none;
-  padding: 10px;
+  padding: 15px;
   color: #000;
   font-family: 'Inter';
 }
 
 .messages{
   display: flex;
-  height: 90%;
+  height: 80%;
   width: 100%;
   overflow: auto;
   flex-direction: column;
@@ -123,25 +125,35 @@
 }
 
 .upload-container {
-  height: 30%;
+  max-height: 30%;
+  min-height: 15%;
   width: 90%;
   margin: 5%;
-  padding-bottom: 3%;
   background-color: rgb(255, 255, 255);
   border-radius: 20px;
   border-style: dashed;
   border-width: 1px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+}
+
+.upload-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .smallbtn {
   border-radius: 50%;
   height: 50px;
-  aspect-ratio: 1;
+  aspect-ratio: 1/1;
   align-self: center;
   background-color: #D9D9D9;
-  margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
   border-style: dashed;
   border-width: 1px;
   border-color: #898989;
@@ -183,7 +195,6 @@
 .mode-select {
   display: flex;
   width: 90%;
-  margin: 5%;
   flex-direction: column;
   align-items: left;
 }
@@ -222,4 +233,38 @@
 
 .active  {
   transform: scale(1); /* Expand when active */
+}
+
+.file-container{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  text-align: center;
+}
+
+.file-container p{
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.inspect-button, .delete-button{
+  height: 50px;
+  width: 50px;
+  margin: 20px;
+  border-radius: 50%;
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #898989;
+  background-color: #D9D9D9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.smallbtn input {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }

@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
-import { PiFolderPlus } from "react-icons/pi";
+import { PiFolderPlus, PiListBulletsBold, PiMagnifyingGlassBold, PiTrashBold } from "react-icons/pi";
 
 function App() {
   const [messages, setMessages] = useState([])
@@ -120,6 +120,29 @@ function App() {
     });
   };
   
+  const fetchFile = async(url) => {
+    try {
+      const response = await fetch("http://127.0.0.1:8000/get-file/" + url);
+      if (!response.ok) throw new Error("Failed to fetch image");
+
+      const blob = await response.blob();
+      window.open(URL.createObjectURL(blob)); // Convert Blob to a URL
+    } catch (error) {
+      console.error("Image fetch error:", error);
+    }
+  }
+  
+  const pdfRef = useRef(null); // Create a ref for the file input
+  
+  const handlePdfClick = () => {
+    pdfRef.current.click(); // Trigger file input click event
+  };
+
+  const flowchartRef = useRef(null); // Create a ref for the file input
+  
+  const handleFlowcartClick = () => {
+    flowchartRef.current.click(); // Trigger file input click event
+  };
   
 
   return (
@@ -143,16 +166,50 @@ function App() {
 
       <div className='footer'>
         <div className='upload-container'>
-          <h2>{"Insert Flowchart File(s)"}</h2>
-          <div className='smallbtn upload' onClick={()=>{setFlowchartPopup(true)}}>
-            <PiFolderPlus size={30}/>
+          <h3>{"Insert Flowchart File(s)"}</h3>
+          <div className='upload-buttons'>
+            <div className='smallbtn upload' onClick={()=>{setFlowchartPopup(true)}}>
+              <PiListBulletsBold size={30}/>
+            </div>
+            <div className='smallbtn' onClick={() => {handleFlowcartClick()}}>
+              <PiFolderPlus
+              size={30} />
+              <input 
+              type='file' 
+              accept='image/*' 
+              onChange={(e) => {
+                uploadFile(e.target.files[0], flowchart, setFlowchart);
+                if (flowchartRef.current) {
+                  flowchartRef.current.value = null; // ✅ Reset input
+                }
+              }} 
+              ref={flowchartRef}
+              />
+            </div>
           </div>
+          <p>{flowchart.length} Files Uploaded</p>
         </div>
         <div className='upload-container'>
-          <h2>{"Insert Supporting PDF(s)"}</h2>
-          <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
-            <PiFolderPlus size={30}/>
+          <h3>{"Insert Supporting PDF(s)"}</h3>
+          <div className='upload-buttons'>
+            <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
+              <PiListBulletsBold size={30}/>
+            </div>
+            <div className='smallbtn' onClick={() => {handlePdfClick()}}>
+              <PiFolderPlus
+              size={30} />
+              <input 
+              type='file' 
+              accept='application/pdf' 
+              onChange={(e) => {
+                uploadFile(e.target.files[0], pdf, setPdf);
+                pdfRef.current.value = "";
+              }} 
+              ref={pdfRef}
+              />
+            </div>
           </div>
+          <p>{pdf.length} Files Uploaded</p>
         </div>
         <div className='mode-select'>
           <div className='mode-option' onClick={() => {setqueryMode('normal')}}>
@@ -169,28 +226,40 @@ function App() {
         </div>
       </div>
 
-      <div className={'popup' + (!pdfPopup ? ' hidden' : '')} onClick={() => setPdfPopup(false)}>
+      <div className={'popup' + (!pdfPopup ? ' hidden' : '')}>
         <div className='popup-content'>
           <h3>Upload PDF</h3>
-          <input type='file' accept='application/pdf' onChange={(e) => uploadFile(e.target.files[0], pdf, setPdf)} />
           <p>PDFs:</p>
-          <ol>
             {pdf.map((filename, i) => (
-              <li>{filename}</li>
+              <div className='file-container'>
+                <p>{i+1}. {filename}</p>
+                <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
+                  <PiMagnifyingGlassBold size={30}/>
+                </div>
+                <div className='delete-button' onClick={() => {setPdf(pdf.filter((_, index) => index !== i))}}>
+                  <PiTrashBold size={30} />
+                </div>
+              </div>
             ))}
-          </ol>
           <button onClick={() => setPdfPopup(false)}>Close</button>
         </div>
       </div>
 
-      <div className={'popup' + (!flowchartPopup ? ' hidden' : '')} onClick={() => setFlowchartPopup(false)}>
+      <div className={'popup' + (!flowchartPopup ? ' hidden' : '')}>
         <div className='popup-content'>
           <h3>Upload Flowchart</h3>
-          <input type='file' accept='image/*' onChange={(e) => uploadFile(e.target.files[0], flowchart, setFlowchart)} />
           <p>Flowcharts:</p>
           <ol>
             {flowchart.map((filename, i) => (
-              <li>{filename}</li>
+              <div className='file-container'>
+                <p>{i+1}. {filename}</p>
+                <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
+                  <PiMagnifyingGlassBold size={30}/>
+                </div>
+                <div className='delete-button' onClick={() => {setFlowchart(flowchart.filter((_, index) => index !== i))}}>
+                  <PiTrashBold size={30} />
+                </div>
+              </div>
             ))}
           </ol>
           <button onClick={() => setFlowchartPopup(false)}>Close</button>

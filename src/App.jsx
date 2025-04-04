@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import './App.css'
-import { PiFolderPlus, PiListBulletsBold, PiMagnifyingGlassBold, PiTrashBold } from "react-icons/pi";
+import { PiFolderPlus, PiListBulletsBold, PiMagnifyingGlassBold, PiTrashBold, PiArrowCircleRightBold } from "react-icons/pi";
 
 function App() {
   const [messages, setMessages] = useState([])
@@ -146,6 +146,10 @@ function App() {
   
 
   return (
+    <>
+    <div className='header'>
+      <img src='https://upload.wikimedia.org/wikipedia/commons/5/52/Sinar_Mas_Land_Logo.png' alt='sinarmas logo'></img>
+    </div>
     <div className='app-container'>
       <div className='message-container'>
         <div className='messages'>
@@ -226,47 +230,59 @@ function App() {
         </div>
       </div>
 
-      <div className={'popup' + (!pdfPopup ? ' hidden' : '')}>
-        <div className='popup-content'>
-          <h3>Upload PDF</h3>
-          <p>PDFs:</p>
+      <div className={'popup' + (!pdfPopup ? ' hidden' : '')} onClick={() => setPdfPopup(false)}>
+        <div className='popup-content' onClick={(e) => e.stopPropagation()}>
+          <div className='popup-header'>
+            <h3>Supporting PDFs</h3>
+            <div className='smallbtn exit' onClick={() => setPdfPopup(false)}>
+              <PiArrowCircleRightBold size={30}/>
+            </div>
+          </div>
+          <div className='files-container'>
             {pdf.map((filename, i) => (
               <div className='file-container'>
-                <p>{i+1}. {filename}</p>
-                <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
-                  <PiMagnifyingGlassBold size={30}/>
-                </div>
-                <div className='delete-button' onClick={() => {setPdf(pdf.filter((_, index) => index !== i))}}>
-                  <PiTrashBold size={30} />
+                <p>{filename}</p>
+                <div className='file-buttons'>
+                  <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
+                    <PiMagnifyingGlassBold size={30}/>
+                  </div>
+                  <div className='delete-button' onClick={() => {setPdf(pdf.filter((_, index) => index !== i))}}>
+                    <PiTrashBold size={30} />
+                  </div>
                 </div>
               </div>
             ))}
-          <button onClick={() => setPdfPopup(false)}>Close</button>
+          </div>
         </div>
       </div>
 
-      <div className={'popup' + (!flowchartPopup ? ' hidden' : '')}>
-        <div className='popup-content'>
-          <h3>Upload Flowchart</h3>
-          <p>Flowcharts:</p>
-          <ol>
+      <div className={'popup' + (!flowchartPopup ? ' hidden' : '')}onClick={() => setFlowchartPopup(false)}>
+        <div className='popup-content' onClick={(e) => e.stopPropagation()}>
+          <div className='popup-header'>
+            <h3>Flowchart Files</h3>
+            <div className='smallbtn exit' onClick={() => setFlowchartPopup(false)}>
+              <PiArrowCircleRightBold size={30}/>
+            </div>
+          </div>
+          <div className='files-container'>
             {flowchart.map((filename, i) => (
               <div className='file-container'>
-                <p>{i+1}. {filename}</p>
-                <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
-                  <PiMagnifyingGlassBold size={30}/>
-                </div>
-                <div className='delete-button' onClick={() => {setFlowchart(flowchart.filter((_, index) => index !== i))}}>
-                  <PiTrashBold size={30} />
+                <p>{filename}</p>
+                <div className='file-buttons'>
+                  <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
+                    <PiMagnifyingGlassBold size={30}/>
+                  </div>
+                  <div className='delete-button' onClick={() => {setFlowchart(flowchart.filter((_, index) => index !== i))}}>
+                    <PiTrashBold size={30} />
+                  </div>
                 </div>
               </div>
             ))}
-          </ol>
-          <button onClick={() => setFlowchartPopup(false)}>Close</button>
+          </div>
         </div>
       </div>
-
     </div>
+    </>
   )
 }
 

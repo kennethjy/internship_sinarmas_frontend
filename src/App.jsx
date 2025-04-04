@@ -59,10 +59,10 @@ function App() {
         text: formatText(result.response)
       },
     ]);
+
   };
 
   const uploadFile = async (file, fileArr, setFile) => {
-    console.log(fileArr);
     if (!file) return;
     const formData = new FormData();
     formData.append('file', file);
@@ -144,6 +144,19 @@ function App() {
     flowchartRef.current.click(); // Trigger file input click event
   };
   
+  const optimizeFilename = (filename) => {
+    var filenameArr = filename.split("\\")
+    return filenameArr[filenameArr.length - 1]
+  };
+
+  const pdfScrollRefs = useRef([]);
+  const flowchartScrollRefs = useRef([]);
+
+  const handleScroll = (event, index, refs) => {
+    if (refs.current[index]) {
+      refs.current[index].scrollLeft += event.deltaY; // Convert vertical scroll to horizontal
+    }
+  };
 
   return (
     <>
@@ -240,8 +253,12 @@ function App() {
           </div>
           <div className='files-container'>
             {pdf.map((filename, i) => (
-              <div className='file-container'>
-                <p>{filename}</p>
+              <div className='file-container' key={i}>
+                <p 
+                ref={(el) => (pdfScrollRefs.current[i] = el)}
+                onWheel={(event) => handleScroll(event, i, pdfScrollRefs)}>
+                  {optimizeFilename(filename)}
+                </p>
                 <div className='file-buttons'>
                   <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
                     <PiMagnifyingGlassBold size={30}/>
@@ -266,8 +283,12 @@ function App() {
           </div>
           <div className='files-container'>
             {flowchart.map((filename, i) => (
-              <div className='file-container'>
-                <p>{filename}</p>
+              <div className='file-container' key={i}>
+                <p 
+                ref={(el) => (flowchartScrollRefs.current[i] = el)}
+                onWheel={(event) => handleScroll(event, i, flowchartScrollRefs)}>
+                  {optimizeFilename(filename)}
+                </p>
                 <div className='file-buttons'>
                   <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
                     <PiMagnifyingGlassBold size={30}/>

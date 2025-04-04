@@ -160,149 +160,149 @@ function App() {
 
   return (
     <>
-    <div className='header'>
-      <img src='https://upload.wikimedia.org/wikipedia/commons/5/52/Sinar_Mas_Land_Logo.png' alt='sinarmas logo'></img>
-    </div>
-    <div className='app-container'>
-      <div className='message-container'>
-        <div className='messages'>
-          {messages.map((m) => (
-            <div className= {'message ' + m.sender}>
-              <div className='messageBody'>{m.text}</div>
-            </div>
-          ))}
-        </div>
-        <div className='message-input'>
-          <textarea value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-          placeholder='Enter your prompt here...'
-          rows="1"></textarea>
-        </div>
+      <div className='header'>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/5/52/Sinar_Mas_Land_Logo.png' alt='sinarmas logo'></img>
       </div>
-
-      <div className='footer'>
-        <div className='upload-container'>
-          <h3>{"Insert Flowchart File(s)"}</h3>
-          <div className='upload-buttons'>
-            <div className='smallbtn upload' onClick={()=>{setFlowchartPopup(true)}}>
-              <PiListBulletsBold size={30}/>
-            </div>
-            <div className='smallbtn' onClick={() => {handleFlowcartClick()}}>
-              <PiFolderPlus
-              size={30} />
-              <input 
-              type='file' 
-              accept='image/*' 
-              onChange={(e) => {
-                uploadFile(e.target.files[0], flowchart, setFlowchart);
-                if (flowchartRef.current) {
-                  flowchartRef.current.value = null; // ✅ Reset input
-                }
-              }} 
-              ref={flowchartRef}
-              />
-            </div>
-          </div>
-          <p>{flowchart.length} Files Uploaded</p>
-        </div>
-        <div className='upload-container'>
-          <h3>{"Insert Supporting PDF(s)"}</h3>
-          <div className='upload-buttons'>
-            <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
-              <PiListBulletsBold size={30}/>
-            </div>
-            <div className='smallbtn' onClick={() => {handlePdfClick()}}>
-              <PiFolderPlus
-              size={30} />
-              <input 
-              type='file' 
-              accept='application/pdf' 
-              onChange={(e) => {
-                uploadFile(e.target.files[0], pdf, setPdf);
-                pdfRef.current.value = "";
-              }} 
-              ref={pdfRef}
-              />
-            </div>
-          </div>
-          <p>{pdf.length} Files Uploaded</p>
-        </div>
-        <div className='mode-select'>
-          <div className='mode-option' onClick={() => {setqueryMode('normal')}}>
-            <div className='mode-outline'> <div className={queryMode == 'normal' ? 'mode-fill active' : 'mode-fill'}></div> </div>
-            <h3>Normal Mode</h3>
-          </div>
-          <div className='mode-option' onClick={() => {setqueryMode('comparison')}}>
-            <div className='mode-outline'> <div className={queryMode == 'comparison' ? 'mode-fill active' : 'mode-fill'}></div></div>
-            <h3>Comparison Mode</h3>
-          </div>
-        </div>
-        <div className='sendbtn' onClick={handleSend}>
-          <h2>Submit</h2>
-        </div>
-      </div>
-
-      <div className={'popup' + (!pdfPopup ? ' hidden' : '')} onClick={() => setPdfPopup(false)}>
-        <div className='popup-content' onClick={(e) => e.stopPropagation()}>
-          <div className='popup-header'>
-            <h3>Supporting PDFs</h3>
-            <div className='smallbtn exit' onClick={() => setPdfPopup(false)}>
-              <PiArrowCircleRightBold size={30}/>
-            </div>
-          </div>
-          <div className='files-container'>
-            {pdf.map((filename, i) => (
-              <div className='file-container' key={i}>
-                <p 
-                ref={(el) => (pdfScrollRefs.current[i] = el)}
-                onWheel={(event) => handleScroll(event, i, pdfScrollRefs)}>
-                  {optimizeFilename(filename)}
-                </p>
-                <div className='file-buttons'>
-                  <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
-                    <PiMagnifyingGlassBold size={30}/>
-                  </div>
-                  <div className='delete-button' onClick={() => {setPdf(pdf.filter((_, index) => index !== i))}}>
-                    <PiTrashBold size={30} />
-                  </div>
-                </div>
+      <div className='app-container'>
+        <div className='message-container'>
+          <div className='messages'>
+            {messages.map((m) => (
+              <div className= {'message ' + m.sender}>
+                <div className='messageBody'>{m.text}</div>
               </div>
             ))}
           </div>
+          <div className='message-input'>
+            <textarea value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+            placeholder='Enter your prompt here...'
+            rows="1"></textarea>
+          </div>
         </div>
-      </div>
 
-      <div className={'popup' + (!flowchartPopup ? ' hidden' : '')}onClick={() => setFlowchartPopup(false)}>
-        <div className='popup-content' onClick={(e) => e.stopPropagation()}>
-          <div className='popup-header'>
-            <h3>Flowchart Files</h3>
-            <div className='smallbtn exit' onClick={() => setFlowchartPopup(false)}>
-              <PiArrowCircleRightBold size={30}/>
+        <div className='footer'>
+          <div className='upload-container'>
+            <h3>{"Insert Flowchart File(s)"}</h3>
+            <div className='upload-buttons'>
+              <div className='smallbtn upload' onClick={()=>{setFlowchartPopup(true)}}>
+                <PiListBulletsBold size={30}/>
+              </div>
+              <div className='smallbtn' onClick={() => {handleFlowcartClick()}}>
+                <PiFolderPlus
+                size={30} />
+                <input 
+                type='file' 
+                accept='image/*' 
+                onChange={(e) => {
+                  uploadFile(e.target.files[0], flowchart, setFlowchart);
+                  if (flowchartRef.current) {
+                    flowchartRef.current.value = null; // ✅ Reset input
+                  }
+                }} 
+                ref={flowchartRef}
+                />
+              </div>
+            </div>
+            <p>{flowchart.length} Files Uploaded</p>
+          </div>
+          <div className='upload-container'>
+            <h3>{"Insert Supporting PDF(s)"}</h3>
+            <div className='upload-buttons'>
+              <div className='smallbtn upload' onClick={()=>{setPdfPopup(true)}}>
+                <PiListBulletsBold size={30}/>
+              </div>
+              <div className='smallbtn' onClick={() => {handlePdfClick()}}>
+                <PiFolderPlus
+                size={30} />
+                <input 
+                type='file' 
+                accept='application/pdf' 
+                onChange={(e) => {
+                  uploadFile(e.target.files[0], pdf, setPdf);
+                  pdfRef.current.value = "";
+                }} 
+                ref={pdfRef}
+                />
+              </div>
+            </div>
+            <p>{pdf.length} Files Uploaded</p>
+          </div>
+          <div className='mode-select'>
+            <div className='mode-option' onClick={() => {setqueryMode('normal')}}>
+              <div className='mode-outline'> <div className={queryMode == 'normal' ? 'mode-fill active' : 'mode-fill'}></div> </div>
+              <h3>Normal Mode</h3>
+            </div>
+            <div className='mode-option' onClick={() => {setqueryMode('comparison')}}>
+              <div className='mode-outline'> <div className={queryMode == 'comparison' ? 'mode-fill active' : 'mode-fill'}></div></div>
+              <h3>Comparison Mode</h3>
             </div>
           </div>
-          <div className='files-container'>
-            {flowchart.map((filename, i) => (
-              <div className='file-container' key={i}>
-                <p 
-                ref={(el) => (flowchartScrollRefs.current[i] = el)}
-                onWheel={(event) => handleScroll(event, i, flowchartScrollRefs)}>
-                  {optimizeFilename(filename)}
-                </p>
-                <div className='file-buttons'>
-                  <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
-                    <PiMagnifyingGlassBold size={30}/>
-                  </div>
-                  <div className='delete-button' onClick={() => {setFlowchart(flowchart.filter((_, index) => index !== i))}}>
-                    <PiTrashBold size={30} />
+          <div className='sendbtn' onClick={handleSend}>
+            <h2>Submit</h2>
+          </div>
+        </div>
+
+        <div className={'popup' + (!pdfPopup ? ' hidden' : '')} onClick={() => setPdfPopup(false)}>
+          <div className='popup-content' onClick={(e) => e.stopPropagation()}>
+            <div className='popup-header'>
+              <h3>Supporting PDFs</h3>
+              <div className='smallbtn exit' onClick={() => setPdfPopup(false)}>
+                <PiArrowCircleRightBold size={30}/>
+              </div>
+            </div>
+            <div className='files-container'>
+              {pdf.map((filename, i) => (
+                <div className='file-container' key={i}>
+                  <p 
+                  ref={(el) => (pdfScrollRefs.current[i] = el)}
+                  onWheel={(event) => handleScroll(event, i, pdfScrollRefs)}>
+                    {optimizeFilename(filename)}
+                  </p>
+                  <div className='file-buttons'>
+                    <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
+                      <PiMagnifyingGlassBold size={30}/>
+                    </div>
+                    <div className='delete-button' onClick={() => {setPdf(pdf.filter((_, index) => index !== i))}}>
+                      <PiTrashBold size={30} />
+                    </div>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className={'popup' + (!flowchartPopup ? ' hidden' : '')}onClick={() => setFlowchartPopup(false)}>
+          <div className='popup-content' onClick={(e) => e.stopPropagation()}>
+            <div className='popup-header'>
+              <h3>Flowchart Files</h3>
+              <div className='smallbtn exit' onClick={() => setFlowchartPopup(false)}>
+                <PiArrowCircleRightBold size={30}/>
               </div>
-            ))}
+            </div>
+            <div className='files-container'>
+              {flowchart.map((filename, i) => (
+                <div className='file-container' key={i}>
+                  <p 
+                  ref={(el) => (flowchartScrollRefs.current[i] = el)}
+                  onWheel={(event) => handleScroll(event, i, flowchartScrollRefs)}>
+                    {optimizeFilename(filename)}
+                  </p>
+                  <div className='file-buttons'>
+                    <div className='inspect-button' onClick={() => {fetchFile(filename)}}>
+                      <PiMagnifyingGlassBold size={30}/>
+                    </div>
+                    <div className='delete-button' onClick={() => {setFlowchart(flowchart.filter((_, index) => index !== i))}}>
+                      <PiTrashBold size={30} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   )
 }

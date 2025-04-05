@@ -10,6 +10,7 @@ function App() {
   const [pdfPopup, setPdfPopup] = useState(false);
   const [flowchartPopup, setFlowchartPopup] = useState(false);
   const [queryMode, setqueryMode] = useState("normal");
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
   
   const handleSend = async () => {
@@ -21,7 +22,7 @@ function App() {
     const inputCopy = input.replace(/\?/g, "%3F");
     setInput("");
     if (queryMode == "regular") {
-      var requestURL = "http://127.0.0.1:8000/query-qwen/with_files/" + inputCopy
+      var requestURL = apiUrl + "/query-qwen/with_files/" + inputCopy
       if (pdf) {
         requestURL += '?pdfPath=' + pdf
       }
@@ -34,7 +35,7 @@ function App() {
         requestURL += 'flowchartPath=' + flowchart;
       }
     } else {
-      var requestURL = "http://127.0.0.1:8000/query-qwen/comparison/" + inputCopy
+      var requestURL = apiUrl + "/query-qwen/comparison/" + inputCopy
       if (pdf) {
         requestURL += '?pdfPaths=' + pdf
       }
@@ -68,7 +69,7 @@ function App() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/uploadFile', {
+      const response = await fetch(apiUrl + '/uploadFile', {
         method: 'POST',
         body: formData
       });
@@ -122,7 +123,7 @@ function App() {
   
   const fetchFile = async(url) => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/get-file/" + url);
+      const response = await fetch(apiUrl + "/get-file/" + url);
       if (!response.ok) throw new Error("Failed to fetch image");
 
       const blob = await response.blob();
@@ -161,7 +162,6 @@ function App() {
   return (
     <>
       <div className='header'>
-        <img src='https://upload.wikimedia.org/wikipedia/commons/5/52/Sinar_Mas_Land_Logo.png' alt='sinarmas logo'></img>
       </div>
       <div className='app-container'>
         <div className='message-container'>

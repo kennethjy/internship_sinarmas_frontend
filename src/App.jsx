@@ -21,7 +21,7 @@ function App() {
     setMessages(newMessages);
     const inputCopy = input.replace(/\?/g, "%3F");
     setInput("");
-    if (queryMode == "regular") {
+    if (queryMode == "normal") {
       var requestURL = apiUrl + "/query-qwen/with_files/" + inputCopy
       if (pdf) {
         requestURL += '?pdfPath=' + pdf

@@ -256,6 +256,7 @@
   transform: scale(0);
   background-color: #6488EA;
   transition: transform 0.3s ease-in-out;
+  margin: auto;
 }
 
 .active  {
